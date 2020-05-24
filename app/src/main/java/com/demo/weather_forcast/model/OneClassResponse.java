@@ -14,7 +14,7 @@ public class OneClassResponse {
     @SerializedName("lon")
     private Double lon;
     @SerializedName("current")
-    private Object current;
+    private OneClassCurrentVo current;
     @SerializedName("daily")
     private List<Object> daily;
 
@@ -22,7 +22,7 @@ public class OneClassResponse {
         return current;
     }
 
-    public void setCurrent(Object current) {
+    public void setCurrent(OneClassCurrentVo current) {
         this.current = current;
     }
 
