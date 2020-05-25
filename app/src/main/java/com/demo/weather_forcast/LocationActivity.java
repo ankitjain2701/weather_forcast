@@ -17,10 +17,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demo.weather_forcast.Api.ApiClient;
+import com.demo.weather_forcast.R;
 import com.demo.weather_forcast.model.OneClassRequest;
 import com.demo.weather_forcast.model.OneClassResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,7 +38,8 @@ import com.google.android.gms.tasks.Task;
 
 
 public class LocationActivity extends AppCompatActivity {
-
+    ListView listView;
+    MyAdapter myAdapteradapter;
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
     TextView tv_print_view;
@@ -43,7 +49,7 @@ public class LocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_print_view = findViewById(R.id.tv_today_temp);
+        tv_print_view = findViewById(R.id.temp);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -168,4 +174,25 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
+    private class MyAdapter extends BaseAdapter {
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            return null;
+        }
+    }
 }
