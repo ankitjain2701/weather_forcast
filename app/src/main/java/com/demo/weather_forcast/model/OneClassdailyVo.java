@@ -49,13 +49,13 @@ public class OneClassdailyVo {
     }
     private Long pressure;
     private Long humidity;
-    private Long dew_point;
-    private Long wind_speed;
+    private Double dew_point;
+    private Double wind_speed;
     private Long wind_deg;
     private OneClassCurrntWeatherVo weather;
     private Long clouds;
-    private Long rain;
-    private Long uvi;
+    private Double rain;
+    private Double uvi;
 
     public Long getPressure() {
         return pressure;
@@ -73,19 +73,19 @@ public class OneClassdailyVo {
         this.humidity = humidity;
     }
 
-    public Long getDew_point() {
+    public Double getDew_point() {
         return dew_point;
     }
 
-    public void setDew_point(Long dew_point) {
+    public void setDew_point(Double dew_point) {
         this.dew_point = dew_point;
     }
 
-    public Long getWind_speed() {
+    public Double getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(Long wind_speed) {
+    public void setWind_speed(Double wind_speed) {
         this.wind_speed = wind_speed;
     }
 
@@ -113,19 +113,19 @@ public class OneClassdailyVo {
         this.clouds = clouds;
     }
 
-    public Long getRain() {
+    public Double getRain() {
         return rain;
     }
 
-    public void setRain(Long rain) {
+    public void setRain(Double rain) {
         this.rain = rain;
     }
 
-    public Long getUvi() {
+    public Double getUvi() {
         return uvi;
     }
 
-    public void setUvi(Long uvi) {
+    public void setUvi(Double uvi) {
         this.uvi = uvi;
     }
 }

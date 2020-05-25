@@ -44,6 +44,7 @@
                 android:layout_gravity="center"
                 android:text="Clear Sky"
                 android:textColor="@color/colorwhite"/>
+
             <TextView android:id="@+id/temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,18 +58,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
-                <TextView android:id="@+id/temp_min"
+                <TextView android:id="@+id/sunrise_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Min Temp: 05:05 AM"
+                    android:text="Sunset: 05:05 AM"
                     android:textColor="@color/colorwhite"/>
                 <Space android:layout_width="50dp"
                     android:layout_height="wrap_content"/>
 
-                <TextView android:id="@+id/temp_max"
+                <TextView android:id="@+id/sunset_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max Temp: 05:05 PM"
+                    android:text="Sunrise: 05:05 PM"
                     android:textColor="@color/colorwhite"/>
             </LinearLayout>
 

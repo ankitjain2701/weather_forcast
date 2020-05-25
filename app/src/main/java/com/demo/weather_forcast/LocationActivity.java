@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -36,20 +37,31 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Date;
+
 
 public class LocationActivity extends AppCompatActivity {
     ListView listView;
     MyAdapter myAdapteradapter;
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
-    TextView tv_print_view;
+    TextView tv_address;
+    TextView tv_updated_at;
+    TextView tv_temp;
+    TextView tv_sunset_temp;
+    TextView tv_sunrise_temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_print_view = findViewById(R.id.temp);
+        tv_address = (TextView) findViewById(R.id.address);
+        tv_updated_at= (TextView) findViewById(R.id.updated_at);
+        tv_temp = (TextView) findViewById(R.id.temp);
+        tv_sunset_temp= (TextView) findViewById(R.id.sunset_temp);
+        tv_sunrise_temp= (TextView) findViewById(R.id.sunrise_temp);
+        listView=(ListView) findViewById(R.id.listview_item);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -162,7 +174,12 @@ public class LocationActivity extends AppCompatActivity {
         responseCall.enqueue(new Callback<OneClassResponse>() {
             @Override
             public void onResponse(Call<OneClassResponse> call, Response<OneClassResponse> response) {
-                tv_print_view.setText(response.body().getTimezone());
+                tv_address.setText(response.body().getTimezone());
+                Date date = new Date(response.body().getCurrent().getDt());
+                tv_updated_at.setText(date.getTime()+"");
+                tv_temp.setText(response.body().getCurrent().getTemp().toString());
+                tv_sunrise_temp.setText("Sunrise:"+response.body().getCurrent().getSunrise().toString());
+                tv_sunset_temp.setText("Sunset:"+response.body().getCurrent().getSunset().toString());
                 Toast.makeText(getApplicationContext(), "Successfully triggered", Toast.LENGTH_SHORT).show();
 
             }
@@ -175,24 +192,28 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private class MyAdapter extends BaseAdapter {
+        public Context context;
         @Override
         public int getCount() {
-            return 0;
+            return 0 ;
         }
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return i;
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            return null;
+        public View getView(int i, View vview, ViewGroup viewGroup)
+        {
+            View view= LayoutInflater.from(context).inflate(R.layout.row_data,null);
+
+            return view;
         }
     }
 }

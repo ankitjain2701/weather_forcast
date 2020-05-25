@@ -6,7 +6,7 @@ public class OneClassCurrentVo {
 private Long dt;
 private Long sunrise;
 private Long sunset;
-private Long temp;
+private Double temp;
 
     public Long getDt() {
         return dt;
@@ -32,19 +32,19 @@ private Long temp;
         this.sunset = sunset;
     }
 
-    public Long getTemp() {
+    public Double getTemp() {
         return temp;
     }
 
-    public void setTemp(Long temp) {
+    public void setTemp(Double temp) {
         this.temp = temp;
     }
 
-    public Long getFeels_like() {
+    public Double getFeels_like() {
         return feels_like;
     }
 
-    public void setFeels_like(Long feels_like) {
+    public void setFeels_like(Double feels_like) {
         this.feels_like = feels_like;
     }
 
@@ -64,19 +64,19 @@ private Long temp;
         this.humidity = humidity;
     }
 
-    public Long getDew_point() {
+    public Double getDew_point() {
         return dew_point;
     }
 
-    public void setDew_point(Long dew_point) {
+    public void setDew_point(Double dew_point) {
         this.dew_point = dew_point;
     }
 
-    public Long getUvi() {
+    public Double getUvi() {
         return uvi;
     }
 
-    public void setUvi(Long uvi) {
+    public void setUvi(Double uvi) {
         this.uvi = uvi;
     }
 
@@ -96,19 +96,19 @@ private Long temp;
         this.visibility = visibility;
     }
 
-    public Long getWind_speed() {
+    public Double getWind_speed() {
         return wind_speed;
     }
 
-    public void setWind_speed(Long wind_speed) {
+    public void setWind_speed(Double wind_speed) {
         this.wind_speed = wind_speed;
     }
 
-    public Long getWind_deg() {
+    public Integer getWind_deg() {
         return wind_deg;
     }
 
-    public void setWind_deg(Long wind_deg) {
+    public void setWind_deg(Integer wind_deg) {
         this.wind_deg = wind_deg;
     }
 
@@ -120,14 +120,14 @@ private Long temp;
         this.weather = weather;
     }
 
-    private Long feels_like;
+    private Double feels_like;
 private Long pressure;
 private Long humidity;
-private Long dew_point;
-private Long uvi;
+private Double dew_point;
+private Double uvi;
 private Long clouds;
 private Long visibility;
-private Long wind_speed;
-private Long wind_deg;
+private Double wind_speed;
+private Integer wind_deg;
 private List<OneClassCurrntWeatherVo> weather;
 }
