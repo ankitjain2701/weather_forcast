@@ -6,7 +6,8 @@
     android:padding="25dp"
     android:background="@drawable/elio">
 
-    <RelativeLayout android:id="@+id/mainContainer"
+    <LinearLayout android:id="@+id/mainContainer"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
@@ -30,6 +31,9 @@
                 android:text="20 April 2012, 20:08 PM"/>
         </LinearLayout>
 
+        <Space android:layout_width="wrap_content"
+            android:layout_height="100dp"/>
+
 
         <LinearLayout android:id="@+id/overviewContainer"
             android:layout_width="match_parent"
@@ -48,7 +52,7 @@
             <TextView android:id="@+id/temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="90dp"
+                android:textSize="75dp"
                 android:fontFamily="sans-serif-thin"
                 android:layout_gravity="center"
                 android:text="29°C"
@@ -74,6 +78,8 @@
             </LinearLayout>
 
         </LinearLayout>
+        <Space android:layout_width="wrap_content"
+            android:layout_height="150dp"/>
 
 
         <LinearLayout android:id="@+id/detailsContainer"
@@ -82,24 +88,19 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
            // add list view
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
-            <ScrollView
-                android:id="@+id/Scroll_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ListView
+
+
+                <GridView
                     android:id="@+id/listview_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></ListView>
-            </ScrollView>
+                    android:numColumns="4"
+                    android:layout_height="wrap_content"></GridView>
+
+
+
 
         </LinearLayout>
-
-        </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <ProgressBar android:id="@+id/loader"

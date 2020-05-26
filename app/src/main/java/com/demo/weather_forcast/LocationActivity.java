@@ -1,6 +1,7 @@
 package com.demo.weather_forcast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import retrofit2.Call;
@@ -14,17 +15,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.demo.weather_forcast.Adapter.MyAdapter;
 import com.demo.weather_forcast.Api.ApiClient;
 import com.demo.weather_forcast.R;
 import com.demo.weather_forcast.model.OneClassRequest;
@@ -37,11 +42,19 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class LocationActivity extends AppCompatActivity {
-    ListView listView;
+    //ListView listView;
+    GridView GridListView;
     MyAdapter myAdapteradapter;
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
@@ -61,7 +74,8 @@ public class LocationActivity extends AppCompatActivity {
         tv_temp = (TextView) findViewById(R.id.temp);
         tv_sunset_temp= (TextView) findViewById(R.id.sunset_temp);
         tv_sunrise_temp= (TextView) findViewById(R.id.sunrise_temp);
-        listView=(ListView) findViewById(R.id.listview_item);
+        //listView=(ListView) findViewById(R.id.listview_item);
+        GridListView=(GridView)findViewById(R.id.listview_item);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -162,8 +176,8 @@ public class LocationActivity extends AppCompatActivity {
 
     }
 
-    public void getWeatherInfo(Double lat, Double lon){
-        OneClassRequest request = new OneClassRequest();
+    public void getWeatherInfo(Double lat, final Double lon){
+        final OneClassRequest request = new OneClassRequest();
         request.setAppid("1bd1e5a422c4bc54365d73b8b8bf0b31");
         request.setExclude("hourly,minutely");
         request.setLat(lat);
@@ -172,17 +186,42 @@ public class LocationActivity extends AppCompatActivity {
         Call<OneClassResponse> responseCall =  ApiClient.apiInterface().getWeatherByLocation(request.getLon(),request.getLat(),request.getAppid(),request.getExclude());
         Toast.makeText(getApplicationContext(), "APi Hit", Toast.LENGTH_SHORT).show();
         responseCall.enqueue(new Callback<OneClassResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<OneClassResponse> call, Response<OneClassResponse> response) {
                 tv_address.setText(response.body().getTimezone());
-                Date date = new Date(response.body().getCurrent().getDt());
-                tv_updated_at.setText(date.getTime()+"");
-                tv_temp.setText(response.body().getCurrent().getTemp().toString());
-                tv_sunrise_temp.setText("Sunrise:"+response.body().getCurrent().getSunrise().toString());
-                tv_sunset_temp.setText("Sunset:"+response.body().getCurrent().getSunset().toString());
+
+               // Date date = new Date(response.body().getCurrent().getDt());
+                Long update=response.body().getCurrent().getDt();
+                String updatedAtText = "Updated at: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(update * 1000));
+
+
+                tv_updated_at.setText(updatedAtText);
+
+
+                Double temp=response.body().getCurrent().getTemp();
+                Double cal_temp=temp-273.15;
+                DecimalFormat precision = new DecimalFormat("0.0");
+
+                tv_temp.setText(precision.format(cal_temp).toString()+"°C");
+
+                Long sunrise=response.body().getCurrent().getSunrise();
+                String sunrise_text = "Sunrise: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date( sunrise* 1000));
+                tv_sunrise_temp.setText(sunrise_text);
+
+                Long sunset=response.body().getCurrent().getSunset();
+                String sunset_text = "Sunrise: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date( sunset* 1000));
+                tv_sunset_temp.setText(sunset_text);
+
+               // tv_sunset_temp.setText("Sunset:"+response.body().getCurrent().getSunset().toString());
+
+                myAdapteradapter= new MyAdapter(getApplicationContext(), response.body().getDaily());
+                //listView.setAdapter(myAdapteradapter);
+                GridListView.setAdapter(myAdapteradapter);
                 Toast.makeText(getApplicationContext(), "Successfully triggered", Toast.LENGTH_SHORT).show();
 
             }
+
 
             @Override
             public void onFailure(Call<OneClassResponse> call, Throwable t) {
@@ -191,29 +230,5 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
-    private class MyAdapter extends BaseAdapter {
-        public Context context;
-        @Override
-        public int getCount() {
-            return 0 ;
-        }
 
-        @Override
-        public Object getItem(int i) {
-            return i;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View vview, ViewGroup viewGroup)
-        {
-            View view= LayoutInflater.from(context).inflate(R.layout.row_data,null);
-
-            return view;
-        }
-    }
 }

@@ -1,5 +1,7 @@
 package com.demo.weather_forcast.model;
 
+import java.util.List;
+
 public class OneClassdailyVo {
     private Long dt;
 
@@ -52,7 +54,7 @@ public class OneClassdailyVo {
     private Double dew_point;
     private Double wind_speed;
     private Long wind_deg;
-    private OneClassCurrntWeatherVo weather;
+    private List<OneClassCurrntWeatherVo> weather;
     private Long clouds;
     private Double rain;
     private Double uvi;
@@ -97,11 +99,11 @@ public class OneClassdailyVo {
         this.wind_deg = wind_deg;
     }
 
-    public OneClassCurrntWeatherVo getWeather() {
+    public List<OneClassCurrntWeatherVo> getWeather() {
         return weather;
     }
 
-    public void setWeather(OneClassCurrntWeatherVo weather) {
+    public void setWeather(List<OneClassCurrntWeatherVo> weather) {
         this.weather = weather;
     }
 

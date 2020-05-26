@@ -17,7 +17,7 @@ public class OneClassResponse {
     @SerializedName("current")
     private OneClassCurrentVo current;
     @SerializedName("daily")
-    private List<Object> daily;
+    private List<OneClassdailyVo> daily;
 
     public OneClassCurrentVo getCurrent() {
         return current;
@@ -27,11 +27,11 @@ public class OneClassResponse {
         this.current = current;
     }
 
-    public List<Object> getDaily() {
+    public List<OneClassdailyVo> getDaily() {
         return daily;
     }
 
-    public void setDaily(List<Object> daily) {
+    public void setDaily(List<OneClassdailyVo> daily) {
         this.daily = daily;
     }
 
