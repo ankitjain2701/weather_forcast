@@ -49,16 +49,29 @@ public class MyAdapter extends BaseAdapter {
             View view= LayoutInflater.from(context).inflate(R.layout.row_data,null);
             ImageView image_view_= view.findViewById(R.id.image_);
             TextView text_sunrise_temp=view.findViewById(R.id.sunrise_);
-            //TextView text_max_temp=view.findViewById(R.id.max_temp);
-           // TextView text_min_temp= view.findViewById(R.id.min_temp);
+            TextView text_max_temp=view.findViewById(R.id.temp_max_);
+            TextView text_min_temp= view.findViewById(R.id.temp_min_);
 
             Long sunrise=oneClassdailyVos.get(i).getSunrise();
-            String sunrise_text =  new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date( sunrise* 1000));
+            String sunrise_text =  new SimpleDateFormat("dd/MM/yy hh:mm a", Locale.ENGLISH).format(new Date( sunrise* 1000));
             text_sunrise_temp.setText(sunrise_text);
 
 
             //text_sunrise_temp.setText(oneClassdailyVos.get(i).getSunrise().toString());
-           // text_max_temp.setText(oneClassdailyVos.get(i).getWeather().get(i).toString()+"°C");
+
+            Double temp1=oneClassdailyVos.get(i).getTemp().getMax();
+            Double cal_temp1=temp1-273.15;
+            DecimalFormat precision1 = new DecimalFormat("0.0");
+
+            text_max_temp.setText("Temp Max: "+precision1.format(cal_temp1)+"°C");
+
+            Double temp=oneClassdailyVos.get(i).getTemp().getMin();
+            Double cal_temp=temp-273.15;
+            DecimalFormat precision = new DecimalFormat("0.0");
+
+            text_min_temp.setText("Temp Min: "+precision.format(cal_temp)+"°C");
+
+
 
 
             return view;

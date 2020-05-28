@@ -32,7 +32,7 @@
         </LinearLayout>
 
         <Space android:layout_width="wrap_content"
-            android:layout_height="100dp"/>
+            android:layout_height="90dp"/>
 
 
         <LinearLayout android:id="@+id/overviewContainer"
@@ -79,7 +79,7 @@
 
         </LinearLayout>
         <Space android:layout_width="wrap_content"
-            android:layout_height="150dp"/>
+            android:layout_height="110dp"/>
 
 
         <LinearLayout android:id="@+id/detailsContainer"
@@ -92,9 +92,9 @@
 
                 <GridView
                     android:id="@+id/listview_item"
-                    android:layout_width="wrap_content"
-                    android:numColumns="4"
-                    android:layout_height="wrap_content"></GridView>
+                    android:layout_width="match_parent"
+                    android:numColumns="3"
+                    android:layout_height="match_parent"></GridView>
 
 
 

@@ -29,17 +29,20 @@ public class OneClassdailyVo {
         this.sunset = sunset;
     }
 
-    public OneClassTempVo getTemp() {
-        return Temp;
-    }
 
-    public void setTemp(OneClassTempVo temp) {
-        Temp = temp;
-    }
 
     private Long sunrise;
     private Long sunset;
-    private OneClassTempVo Temp;
+    private OneClassTempVo temp;
+
+    public OneClassTempVo getTemp() {
+        return temp;
+    }
+
+    public void setTemp(OneClassTempVo temp) {
+        this.temp = temp;
+    }
+
     private OneClassfeels_like feels_like;
 
     public OneClassfeels_like getFeels_like() {

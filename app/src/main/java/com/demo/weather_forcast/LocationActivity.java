@@ -13,6 +13,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -48,6 +50,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -176,7 +179,7 @@ public class LocationActivity extends AppCompatActivity {
 
     }
 
-    public void getWeatherInfo(Double lat, final Double lon){
+    public void getWeatherInfo(final Double lat, final Double lon){
         final OneClassRequest request = new OneClassRequest();
         request.setAppid("1bd1e5a422c4bc54365d73b8b8bf0b31");
         request.setExclude("hourly,minutely");
@@ -189,11 +192,12 @@ public class LocationActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<OneClassResponse> call, Response<OneClassResponse> response) {
+
                 tv_address.setText(response.body().getTimezone());
 
                // Date date = new Date(response.body().getCurrent().getDt());
                 Long update=response.body().getCurrent().getDt();
-                String updatedAtText = "Updated at: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(update * 1000));
+                String updatedAtText = "Updated at: " + new SimpleDateFormat("dd/MM/yy hh:mm a", Locale.ENGLISH).format(new Date(update * 1000));
 
 
                 tv_updated_at.setText(updatedAtText);
@@ -206,11 +210,11 @@ public class LocationActivity extends AppCompatActivity {
                 tv_temp.setText(precision.format(cal_temp).toString()+"°C");
 
                 Long sunrise=response.body().getCurrent().getSunrise();
-                String sunrise_text = "Sunrise: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date( sunrise* 1000));
+                String sunrise_text = "Sunrise: " + new SimpleDateFormat(" hh:mm a", Locale.ENGLISH).format(new Date( sunrise* 1000));
                 tv_sunrise_temp.setText(sunrise_text);
 
                 Long sunset=response.body().getCurrent().getSunset();
-                String sunset_text = "Sunrise: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date( sunset* 1000));
+                String sunset_text = "Sunrise: " + new SimpleDateFormat(" hh:mm a", Locale.ENGLISH).format(new Date( sunset* 1000));
                 tv_sunset_temp.setText(sunset_text);
 
                // tv_sunset_temp.setText("Sunset:"+response.body().getCurrent().getSunset().toString());
