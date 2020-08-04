@@ -71,9 +71,6 @@ public class MyAdapter extends BaseAdapter {
 
             text_min_temp.setText("Temp Min: "+precision.format(cal_temp)+"°C");
 
-
-
-
             return view;
         }
     }

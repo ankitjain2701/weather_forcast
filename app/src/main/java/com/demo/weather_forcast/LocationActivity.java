@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,15 +29,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.demo.weather_forcast.Adapter.HorizontalAdapter;
 import com.demo.weather_forcast.Adapter.MyAdapter;
 import com.demo.weather_forcast.Api.ApiClient;
 import com.demo.weather_forcast.R;
 import com.demo.weather_forcast.model.OneClassRequest;
 import com.demo.weather_forcast.model.OneClassResponse;
+import com.demo.weather_forcast.model.OneClassdailyVo;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -56,7 +61,8 @@ import java.util.TimeZone;
 
 
 public class LocationActivity extends AppCompatActivity {
-    //ListView listView;
+
+    ListView listView;
     GridView GridListView;
     MyAdapter myAdapteradapter;
     int PERMISSION_ID = 44;
@@ -78,7 +84,8 @@ public class LocationActivity extends AppCompatActivity {
         tv_sunset_temp= (TextView) findViewById(R.id.sunset_temp);
         tv_sunrise_temp= (TextView) findViewById(R.id.sunrise_temp);
         //listView=(ListView) findViewById(R.id.listview_item);
-        GridListView=(GridView)findViewById(R.id.listview_item);
+        //GridListView=(GridView)findViewById(R.id.listview_item);
+
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -97,6 +104,7 @@ public class LocationActivity extends AppCompatActivity {
                                     requestNewLocationData();
                                 } else {
                                     getWeatherInfo(location.getLatitude(),location.getLongitude());
+
                                 }
                             }
                         }
@@ -150,6 +158,7 @@ public class LocationActivity extends AppCompatActivity {
                 this,
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
                 PERMISSION_ID
+
         );
     }
 
@@ -219,9 +228,15 @@ public class LocationActivity extends AppCompatActivity {
 
                // tv_sunset_temp.setText("Sunset:"+response.body().getCurrent().getSunset().toString());
 
-                myAdapteradapter= new MyAdapter(getApplicationContext(), response.body().getDaily());
-                //listView.setAdapter(myAdapteradapter);
-                GridListView.setAdapter(myAdapteradapter);
+                //myAdapteradapter= new MyAdapter(getApplicationContext(), response.body().getDaily());
+               // listView.setAdapter(myAdapteradapter);
+                //GridListView.setAdapter(myAdapteradapter);
+
+                RecyclerView list=(RecyclerView) findViewById(R.id.list);
+                list.setLayoutManager(new LinearLayoutManager(LocationActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                list.setAdapter(new HorizontalAdapter(getApplicationContext(),response.body().getDaily()));
+
+
                 Toast.makeText(getApplicationContext(), "Successfully triggered", Toast.LENGTH_SHORT).show();
 
             }
