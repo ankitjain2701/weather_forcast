@@ -3,6 +3,7 @@ package com.demo.weather_forcast.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.TimeZone;
 
 public class OneClassResponse {
     @SerializedName("timezone")
@@ -14,23 +15,23 @@ public class OneClassResponse {
     @SerializedName("lon")
     private Double lon;
     @SerializedName("current")
-    private Object current;
+    private OneClassCurrentVo current;
     @SerializedName("daily")
-    private List<Object> daily;
+    private List<OneClassdailyVo> daily;
 
-    public Object getCurrent() {
+    public OneClassCurrentVo getCurrent() {
         return current;
     }
 
-    public void setCurrent(Object current) {
+    public void setCurrent(OneClassCurrentVo current) {
         this.current = current;
     }
 
-    public List<Object> getDaily() {
+    public List<OneClassdailyVo> getDaily() {
         return daily;
     }
 
-    public void setDaily(List<Object> daily) {
+    public void setDaily(List<OneClassdailyVo> daily) {
         this.daily = daily;
     }
 
